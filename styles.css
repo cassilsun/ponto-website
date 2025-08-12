@@ -1,0 +1,507 @@
+/* =========================
+   基础设置（变量、通用）
+   ========================= */
+:root {
+  --brand-blue: #188FC2;   /* 品牌主蓝 */
+  --accent: #f59e0b;       /* 强调色（橙） */
+  --text: #333333;         /* 正文颜色 */
+  --footer-bg: #282b2c;    /* 页脚背景色 */
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+  background: var(--white);
+  min-width: 350px;
+  overflow-x: hidden;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+/* 通用容器：行/列布局 */
+.container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-col {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+/* 通用按钮（如后续需要可复用） */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  width: fit-content;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--accent);
+  font-size: 1.5rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.4s ease all;
+}
+.btn:hover { background-color: #252525; }
+
+/* 通用标题/段落/装饰线 */
+.section-title {
+  font-weight: 900;
+  font-size: 3rem;
+  color: #333333;
+  letter-spacing: 1px;
+  margin-top: 0;
+}
+p {
+  color: var(--text);
+  font-size: 1.3rem;
+  line-height: 1.5em;
+}
+.line {
+  height: 2px;
+  width: 6em;
+  background-color: var(--brand-blue);
+}
+
+/* =========================
+   头部与导航
+   ========================= */
+#header {
+  /* 固定头可按需启用：position: fixed; */
+  position: static;
+  z-index: 1000;
+  width: 100%;
+  transition: 0.4s ease background-color;
+}
+.header {
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 品牌区 */
+.brand { width: 200px; padding: 1em 0; }
+
+/* 汉堡菜单 */
+.ham {
+  padding: 1em;
+  width: 50px;
+  display: inline-block;
+  position: relative;
+  z-index: 100;
+  cursor: pointer;
+}
+.bar {
+  height: 2px;
+  width: 30px;
+  position: relative;
+  background-color: var(--brand-blue);
+  z-index: -1;
+  transition: 0.7s ease;
+}
+.bar::after,
+.bar::before {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  left: 0;
+  background-color: var(--brand-blue);
+  transition: 0.7s ease;
+}
+.bar::before { bottom: 8px; }  /* 上线 */
+.bar::after  { top: 8px; }    /* 下线 */
+
+/* 菜单打开态：中线消失，交叉图标 */
+.ham.active .bar { background-color: transparent; }
+.ham.active .bar::before {
+  bottom: 0;
+  transform: rotate(45deg);
+  background-color: var(--white);
+}
+.ham.active .bar::after {
+  top: 0;
+  transform: rotate(-45deg);
+  background-color: var(--white);
+}
+
+/* 抽屉式导航 */
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  background-color: var(--brand-blue);
+  min-width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: -200%;
+  padding: 3.2em 3em 2em;
+  transition: 0.7s ease right;
+  z-index: 90;
+}
+nav.active { right: 0; }
+
+/* 头部社交图标 */
+.fab {
+  color: var(--white);
+  margin: 0 1em 1em 0;
+  font-size: 1.3rem;
+  transition: 0.4s ease color;
+}
+.fab:hover { color: var(--accent); }
+
+/* 导航菜单 */
+nav ul { list-style: none; padding: 0; margin: 0; }
+nav ul li { margin-bottom: 1em; }
+nav ul li a {
+  text-decoration: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.5em 0;
+  transition: 0.4s ease all;
+}
+nav ul li a:hover { color: rgb(175, 175, 175); }
+
+/* 返回顶部按钮 */
+.scroll-up a {
+  position: fixed;
+  right: -100%;
+  bottom: 5em;
+  height: 35px;
+  width: 35px;
+  background-color: rgba(95, 95, 95, 0.7);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  z-index: 80;
+  text-decoration: none;
+  transition: 0.5s ease all;
+}
+.fa-chevron-up {
+  margin-left: 50%;
+  margin-top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--white);
+  font-size: 1.5rem;
+}
+.scroll-up a.active { right: 0; }
+
+/* =========================
+   首屏（Hero）
+   ========================= */
+#hero {
+  background: var(--white);
+  position: relative;
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+}
+.hero {
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--brand-blue);
+  min-height: 100vh;
+}
+.hero-title {
+  font-weight: 900;
+  font-size: 2.5rem;
+  margin: 0;
+  text-shadow: 0 0 18px #0000002c;
+}
+.hero-subtitle { text-shadow: 0 0 18px #0000002c; }
+
+/* =========================
+   关于我们（About）
+   ========================= */
+.about-wrapper { margin-bottom: 2em; }
+.about-img { text-align: center; }
+.about-img img { max-width: 600px; }
+
+/* 列表（配合 HTML 的 .about-info-list 使用） */
+.about-info-list {
+  list-style-type: square;
+  padding-left: 1.2em;
+  margin: 0 0 0.6em 0;
+}
+.about-info-list li {
+  color: var(--text);
+  font-size: 1.2rem;
+  letter-spacing: 0.6px;
+  line-height: 1.4em;
+}
+
+/* =========================
+   服务（Services）
+   ========================= */
+#services .section-title { font-size: 2rem; }
+.services-wrapper { margin-bottom: 7em; }
+.services-info { margin-bottom: 2em; }
+
+/* 服务卡右侧背景图块（覆盖在 HTML 中以行内样式指定图片） */
+.services-img {
+  width: 100%;
+  min-height: 500px;
+  background: gray;     /* 兜底色，避免图片未加载时的空白 */
+  position: relative;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.services-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--white);
+}
+.services-subtitle { color: var(--white); }
+.services-title-wrapper {
+  width: 85%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* =========================
+   最新资讯（Latest News）
+   ========================= */
+#latest-news {
+  background: var(--white);
+  margin-bottom: 7em;
+}
+.latest-news { padding: 3.5em 0; }
+
+.news-img {
+  height: 200px;
+  object-position: center;
+}
+
+/* 头部标题 */
+.news-header {
+  text-align: center;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.news-header-title {
+  color: black;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+/* 内容卡片 */
+.news-main-wrapper { margin-top: 3em; }
+.news-main-title,
+.news-main-subtitle,
+.news-main-text { color: black; }
+.news-main-subtitle,
+.news-main-text {
+  font-size: 1rem;
+  transition: 0.3s ease color;
+}
+.news-main-item a { text-decoration: none; }
+.news-main-item:hover .news-main-subtitle { color: var(--brand-blue); }
+
+/* =========================
+   页脚（Footer）
+   ========================= */
+#footer {
+  background: var(--footer-bg);
+  color: var(--white);
+}
+.footer { padding: 2em 0; }
+
+/* 顶部信息区（公司信息两列） */
+.footer-items-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.footer-company-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.footer-logo { width: 100px; height: auto; }
+
+/* 文字样式（页脚） */
+.footer-title,
+.copyright {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+.footer-subtitle {
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.4em;
+}
+
+/* 底部版权与社交 */
+.footer-aside {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  text-align: center; /* 小屏兜底 */
+}
+.copyright {
+  color: var(--white);
+  transition: 0.4s ease all;
+}
+.copyright:hover { color: var(--brand-blue); }
+.copyright a {
+  text-decoration: none;
+  color: var(--white);
+  transition: 0.4s ease all;
+}
+.copyright a:hover { color: var(--brand-blue); }
+
+/* 页脚社交图标（方块底） */
+#footer .fab {
+  color: var(--footer-bg);
+  background: var(--white);
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  transition: 0.3s ease color;
+}
+#footer .fab:hover { color: var(--accent); }
+
+.footer-social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   响应式（Media Queries）
+   ========================= */
+/* 平板 */
+@media (min-width: 600px) {
+  .hero-title { font-size: 5rem; }
+  .hero-subtitle { font-size: 2rem; }
+  .brand { width: 175px; padding: 1em 0; }
+  nav { min-width: 400px; }
+
+  /* 关于区：左右两列列表容器的布局 */
+  .about-list-wrapper {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  /* 页脚信息区：栅格布局 */
+  .footer-items-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-gap: 10px;
+  }
+}
+
+/* 桌面 */
+@media (min-width: 1000px) {
+  /* 容器放宽 */
+  .container, .container-col { width: 95%; }
+
+  /* 首屏与外边距 */
+  #hero { margin-bottom: 3em; }
+
+  /* 关于区：左右排列，奇偶交错 */
+  .about-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .about-wrapper:nth-child(even) { flex-direction: row; }
+  .about-img, .about-info { width: 45%; }
+
+  /* 服务区：左右排列，奇偶交错 */
+  .services-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .services-wrapper:nth-child(even) { flex-direction: row-reverse; }
+  .services-info, .services-img { width: 47%; }
+
+  /* 最新资讯：三列网格 */
+  .news-main-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 5%;
+  }
+
+  /* 页脚：上下两行结构更紧凑 */
+  .footer-aside {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* 移动端侧边栏修正：右侧滑入，宽度固定，避免撑宽页面 */
+@media (max-width: 999px) {
+  .header .nav-bar nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px; /* ← 你想要的菜单宽度，可以改成 280px, 320px 等 */
+    height: 100vh;
+    background-color: var(--brand-blue);
+    padding: 3.2em 3em 2em;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header .nav-bar nav.active {
+    transform: translateX(0);
+  }
+
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+/* 超大屏 */
+@media (min-width: 1500px) {
+  #hero { background-position: 50% 75%; }
+}
