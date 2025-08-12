@@ -388,14 +388,18 @@ nav ul li a:hover { color: rgb(175, 175, 175); }
 
 /* 页脚社交图标（方块底） */
 #footer .fab {
-  color: var(--footer-bg);
-  background: var(--white);
-  padding: 10px;
-  margin: 0 5px;
-  border-radius: 5px;
-  transition: 0.3s ease color;
+  color: var(--white);
+  margin: 0 1em 1em 0;  /* 跟汉堡栏一致 */
+  font-size: 1.3rem;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  transition: 0.4s ease color;
 }
-#footer .fab:hover { color: var(--accent); }
+
+#footer .fab:hover {
+  color: #188FC2;
+}
 
 .footer-social-links {
   display: flex;
