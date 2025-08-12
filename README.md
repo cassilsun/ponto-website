@@ -5,7 +5,6 @@
 
 ## 公開ページ
 https://ponto.co.jp
-※ 将来自社ドメイン（例：https://ponto.jp）に切り替え予定。
 
 ## 備考
 GitHub Pages にて公開。モバイル・PC 両対応。
